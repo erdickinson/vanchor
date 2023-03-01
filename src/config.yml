@@ -1,0 +1,89 @@
+AutoPilot:
+  PidKd: 0.1
+  PidKi: 0.4
+  PidKp: 0.1
+  PidOffsetLimitMax: 90
+  PidOffsetLimitMin: -90
+  ArrivalCircleRadius: 10
+Compass:
+  HeadingHistoryLength: 10 # Amount of datapoints to average heading to. Removes jitter
+  UpdateInterval: 10 # Time between polls
+  SendInterval: 10 # Every # cycles
+  Declination: -6.670
+  WmmFile: resources/WMM2020.COF
+Flask:
+  Debug: true
+  Port: 80
+Functions:
+  Enabled:
+    - AutoPilot
+    - Vanchor
+    - HoldHeading
+Devices:
+  Enabled:
+    - Nmea
+    #- MockCompass
+    - Steering
+    - Controller
+    - NmeaNet
+History:
+  MaxItems: 100
+Logging:
+  Format: "%(asctime)s - %(levelname)s - %(lineno)s - %(threadName)s - %(module)s - %(name)s:%(funcName)s - %(message)s"
+  Level: DEBUG
+  LogToFile: False # Excessive writing to SD-cards may break them
+  LogFile: vanchor.log
+  MetricsEnabled: true
+Motor:
+  Offset: 10
+  RampDelay: 20
+  RampTime: 800
+NmeaNet:
+  Port: 10000
+GPS:
+  Device:
+    Blacklist:
+      - VTG
+      - GGA
+      - GSA
+      - GLL
+      - GSV
+    Type: ublox_neo_serial
+    Port: com7
+    BaudRate: 38400
+Serial:
+  Controller:
+    Baudrate: 19200
+    Device: /dev/arduinoNano
+    InputInterval: 50
+    OutputInterval: 50
+    Timeout: 1
+  Nmea:
+    Baudrate: 4800
+    Device: /dev/nmeaSerial
+    Timeout: 50
+    NmeaTestFile: test_data/nmea_data.txt
+HoldHeading:
+  GPSMode: False
+Steering:
+  CorrectionInterval: 0.5
+  PidKp: 0.0015
+  PidKi: 0.04
+  PidKd: 4
+  PidOffsetLimitMax: 90
+  PidOffsetLimitMin: -90
+  Slack: 2
+Stepper:
+  CalibrationOffset: 0
+  Acceleration: 330
+  Ratio: 36 # 36 stepper revs = 1 revolution of the motor
+  Reversed: false
+  Speed: 600
+  StepsPerRevolution: 200
+Vanchor:
+  PidKd: 0.1
+  PidKi: 0.4
+  PidKp: 0.1
+  PidOffsetLimitMax: 50
+  PidOffsetLimitMin: 0
+  Radius: 1
