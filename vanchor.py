@@ -1,5 +1,5 @@
 import sys
-from vanchor.resources import Main
+from vanchor.vanchor.resources import Main
 from time import sleep
 
 
